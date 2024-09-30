@@ -1,0 +1,190 @@
+user@Host:~$ /home/user/VScode_Projects/HTTP/curl.sh
+Test Case 1: No Username
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> password: somepassword
+>
+* Mark bundle as not supporting multiuse
+* The requested URL returned error: 501 Not Implemented
+* Closing connection 0
+
+Test Case 2: No Password
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: someuser
+>
+* Mark bundle as not supporting multiuse
+* The requested URL returned error: 501 Not Implemented
+* Closing connection 0
+
+Test Case 3: Incorrect Username
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: wronguser
+> password: 4W61E0D8P37GLLX
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+<
+* Closing connection 0
+Login failed!
+Test Case 4: Incorrect Password
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: Jerry
+> password: wrongpassword
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+<
+* Closing connection 0
+Login failed!
+Test Case 5: Correct Username and Password
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: Jerry
+> password: 4W61E0D8P37GLLX
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Set-Cookie: sessionID=0x2f2a9692031ec41b
+<
+{ [10 bytes data]
+* Closing connection 0
+
+Cookie (sessionID) for user 1: 0x2f2a9692031ec41b
+
+Test Case 6: Generate a new cookie for the same user
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: Jerry
+> password: 4W61E0D8P37GLLX
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Set-Cookie: sessionID=0x976633fc384f2589
+<
+{ [10 bytes data]
+* Closing connection 0
+
+New Cookie (sessionID) for user 1: 0x976633fc384f2589
+
+Test Case 7: Invalid Cookie
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> GET /file.txt HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> Cookie: sessionID=invalidcookie
+>
+* Mark bundle as not supporting multiuse
+* The requested URL returned error: 401 Unauthorized
+* Closing connection 0
+
+Test Case 8: Access file with valid cookie for user 1
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> GET /file.txt HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> Cookie: sessionID=0x976633fc384f2589
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+<
+* Closing connection 0
+The different snowstorm exhibits fee.
+Test Case 9: Correct Username and Password for User 2
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> POST / HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> username: Matthew
+> password: 51HCPUQXYYQHNAI
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+< Set-Cookie: sessionID=0x4cb281c34d7e5764
+<
+{ [10 bytes data]
+* Closing connection 0
+
+Cookie (sessionID) for user 2: 0x4cb281c34d7e5764
+
+Test Case 10: Access file with valid cookie for user 2
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> GET /file.txt HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> Cookie: sessionID=0x4cb281c34d7e5764
+>
+* Mark bundle as not supporting multiuse
+* HTTP 1.0, assume close after body
+< HTTP/1.0 200 OK
+<
+* Closing connection 0
+The abstracted bargain claims abdomen.
+
+Test Case 11: GET File Not Found
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> GET /nonexistentfile.txt HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> Cookie: sessionID=0x4cb281c34d7e5764
+>
+* Mark bundle as not supporting multiuse
+* The requested URL returned error: 404 NOT FOUND
+* Closing connection 0
+
+Sleeping for 6 seconds...
+
+Test Case 12: Expired Cookie with User 2
+*   Trying 127.0.0.1:1234...
+* Connected to Localhost (127.0.0.1) port 1234 (#0)
+> GET /file.txt HTTP/1.0
+> Host: Localhost:1234
+> User-Agent: curl/7.74.0
+> Accept: */*
+> Cookie: sessionID=0x4cb281c34d7e5764
+>
+* Mark bundle as not supporting multiuse
+* The requested URL returned error: 401 Unauthorized
+* Closing connection 0
